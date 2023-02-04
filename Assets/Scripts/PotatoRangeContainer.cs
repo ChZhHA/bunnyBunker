@@ -8,6 +8,6 @@ public class PotatoRangeContainer : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        box=GetComponent<BoxCollider2D>();
+        box = GetComponent<BoxCollider2D>();
     }
 }

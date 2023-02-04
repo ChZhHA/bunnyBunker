@@ -14,7 +14,7 @@ public class PotatoContainer : MonoBehaviour
         // }
         var range = GetComponent<CompositeCollider2D>().bounds;
         PotatoRangeContainer.Instance.box.size = range.size;
-        PotatoRangeContainer.Instance.box.offset = new Vector2(0, -range.size.y/2);
+        PotatoRangeContainer.Instance.box.offset = new Vector2(0, -range.size.y / 2 + range.max.y );
         //  .bounds.SetMinMax(range.min, range.max);
     }
 }

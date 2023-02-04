@@ -44,5 +44,5 @@ Material:
     m_Floats:
     - _Offset: -0.15
     m_Colors:
-    - _ScrollVelocity: {r: 0.2, g: 0, b: 0, a: 0}
+    - _ScrollVelocity: {r: 0.1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
