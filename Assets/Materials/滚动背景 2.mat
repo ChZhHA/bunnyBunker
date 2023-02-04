@@ -42,7 +42,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Offset: 0
+    - _Offset: -1.46
     m_Colors:
-    - _ScrollVelocity: {r: 0.3, g: 0, b: 0, a: 0}
+    - _ScrollVelocity: {r: 0.2, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
