@@ -133,7 +133,7 @@ Shader "Shader_Effect/S_PixelPerfect"
 
                 col.a= _Enable ? step(0.1,colSamp.a)* step(0,_EdgeSize-0.001) + (1-step(0,_EdgeSize-0.001))*step(0.5,col1.a) : col1.a;
                 float flag = step(col1.a, colSamp.a) * step(col1.a, 0.1);
-                col.rgb= flag * _EdgeColor.rgb+ (1- flag) *col1.rgb;
+                col.rgb= flag * _EdgeColor.rgb+ (1- flag) *col1.rgb * i.color;
 
                 // col.rgb=step(col1.a,col2.a) * _EdgeColor.rgb+step(col2.a,col1.a)*col1.rgb;
                 
