@@ -10,25 +10,31 @@ public class GameManager : MonoBehaviour
     public GameObject initPos;
     public GameObject workPrefab;
     public static int totalIndex = 0;
+    public WorkType current;
     private void Start() {
         GenerateRabbit(2);
     }
     private void Update() {
+        /*
         if(Input.GetMouseButtonDown(0)){
-            //Debug.Log("clicked");
-            chosenOne = null;
-            Vector3 aim = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //Ray aim = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D[] rabbit = new RaycastHit2D[5];
-            //Physics2D.RaycastNonAlloc(
-            int numbers = Physics2D.RaycastNonAlloc(aim, Vector2.zero, rabbit);
-            Debug.Log(numbers);
-            for(int i =0;i<numbers;i++){
-                if(rabbit[i].collider.GetComponent<Rabbit_Entity>()!=null){
-                    chosenOne = rabbit[i].collider.gameObject;
-                    return;
+            switch(current){
+                case WorkType.Idle:
+                chosenOne = null;
+                Vector3 aim = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                //Ray aim = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit2D[] rabbit = new RaycastHit2D[5];
+                //Physics2D.RaycastNonAlloc(
+                int numbers = Physics2D.RaycastNonAlloc(aim, Vector2.zero, rabbit);
+                Debug.Log(numbers);
+                for(int i =0;i<numbers;i++){
+                    if(rabbit[i].collider.GetComponent<Rabbit_Entity>()!=null){
+                        chosenOne = rabbit[i].collider.gameObject;
+                        return;
+                    }
                 }
+                break;
             }
+            current = WorkType.Idle;
         }
         if(chosenOne!=null && Input.GetMouseButtonDown(1)){
             //Debug.Log("work");
@@ -43,7 +49,7 @@ public class GameManager : MonoBehaviour
                     return;
                 }
             }
-        }
+        }*/
 
     }
     public void GenerateRabbit(int num){
@@ -65,11 +71,11 @@ public class GameManager : MonoBehaviour
     }
 
     public void DigButton(){
-        chosenOne.GetComponent<Rabbit_Entity>().toDo = Rabbit_Entity.Assignment.Dig;
-
+        //chosenOne.GetComponent<Rabbit_Entity>().toDo = Rabbit_Entity.Assignment.Dig;
+        current = WorkType.Dig;
     }
     public enum WorkType{
-        Dig
+        Idle,Dig
     }
     public void GenerateWork(Transform value){
         GameObject item = Instantiate(workPrefab,value.position, Quaternion.identity);

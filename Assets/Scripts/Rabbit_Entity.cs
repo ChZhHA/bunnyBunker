@@ -5,10 +5,12 @@ using UnityEngine.EventSystems;
 
 public class Rabbit_Entity : MonoBehaviour
 {
+    /*
     public enum Assignment{
         Idle,Dig
     }
     public Assignment toDo;
+    */
     public float scale = 0.4f;
     float tarScale;
     public RabbitStatus status;
@@ -35,6 +37,7 @@ public class Rabbit_Entity : MonoBehaviour
     private void OnEnable() {
         //GetComponent<SpriteRenderer>().color = gene;
         StartCoroutine(DeathTimer(lifeSpan));
+        transform.localScale=Vector3.one*0.1f;
         status = RabbitStatus.child;
     }
     private void Update() {
@@ -48,11 +51,18 @@ public class Rabbit_Entity : MonoBehaviour
         if(status==RabbitStatus.middle && age>=40){
             status = RabbitStatus.old;
         }
+        GetComponent<SpriteRenderer>().material.SetInt("_Enable",1);
+        GetComponent<SpriteRenderer>().material.SetColor("_EdgeColor",Color.black);
+        //if(gameObject==GameManager.chosenOne) GetComponent<SpriteRenderer>().material.SetColor("_EdgeColor",Color.red);
+        //GetComponent<SpriteRenderer>().material.SetColor("_EdgeColor",Color.black);
+
         //GetComponent<SpriteRenderer>().color = GameManager.chosenOne == gameObject? Color.red:Color.white;
         //GetComponent<SpriteRenderer>().color = gene;
+        /*
         if(task!=null && status == RabbitStatus.middle){
             Move(task);
-        }
+        }*/
+
         transform.localScale=scale*(isRight?Vector3.one:new Vector3(-1,1,1));
     }
     public void Babysit(Rabbit_Entity other,bool isNear){
@@ -82,6 +92,7 @@ public class Rabbit_Entity : MonoBehaviour
             born.GetComponent<Rabbit_Entity>().father = other;
             born.GetComponent<Rabbit_Entity>().motherIndex = gameObject.GetComponent<Rabbit_Entity>().index;
             born.GetComponent<SpriteRenderer>().color = born.GetComponent<Rabbit_Entity>().gene;
+            born.GetComponent<SpriteRenderer>().material.SetColor("_Color",born.GetComponent<Rabbit_Entity>().gene);
             born.GetComponent<Rabbit_Entity>().generation = 1+(other.generation>gameObject.GetComponent<Rabbit_Entity>().generation? other.generation:gameObject.GetComponent<Rabbit_Entity>().generation);
             Debug.Log(born.GetComponent<Rabbit_Entity>().generation);
             born.GetComponent<Rabbit_Entity>().index = RabbitMap.rootTree.Count;

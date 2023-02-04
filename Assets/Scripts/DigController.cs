@@ -78,6 +78,7 @@ public class DigController : MonoBehaviour
             }
             transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90);
             //鼠标直接挖掘
+            /*
             if (Input.GetMouseButtonDown(0))
             {
                 if (!CanSow)
@@ -88,7 +89,7 @@ public class DigController : MonoBehaviour
                 {
                     MakeAPotato(potatoPoint, direction);
                 }
-            }
+            }*/
         }
 
 
