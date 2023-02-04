@@ -16,7 +16,7 @@ public class Jump : MonoBehaviour
         
     }
     private void OnTriggerStay2D(Collider2D other) {
-        if(other.tag == "Walls"){
+        if(other.GetComponent<HoleContainer>()!=null){
             transform.parent.GetComponent<Rabbit_Entity>().Jump(other);
         }
     }

@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameObject chosenOne;
+    public GameObject rabbitPrefab;
+    public GameObject initPos;
     public static int totalIndex = 0;
     private void Start() {
         GenerateRabbit(2);
@@ -46,7 +48,8 @@ public class GameManager : MonoBehaviour
     public void GenerateRabbit(int num){
         bool gender = true;
         for(int i = 0;i<num;i++){
-            GameObject item = Instantiate((GameObject)Resources.Load("Rabbit"),GameObject.Find("Rabbits").transform);
+            GameObject item = Instantiate(rabbitPrefab,initPos.transform.position, Quaternion.identity);
+            item.transform.SetParent(GameObject.Find("Rabbits").transform);
             item.GetComponent<Rabbit_Entity>().mother = item.GetComponent<Rabbit_Entity>();
             item.GetComponent<Rabbit_Entity>().father = item.GetComponent<Rabbit_Entity>();
             item.GetComponent<Rabbit_Entity>().isMale = gender;

@@ -5,11 +5,14 @@ using UnityEngine.EventSystems;
 
 public class Rabbit_Entity : MonoBehaviour
 {
+    public float scale = 0.4f;
+    float tarScale;
     public RabbitStatus status;
     public int generation;
     public int index;
     public int motherIndex;
     float age;
+    public bool isDead=false;
     float grow = 10f;
     int lifeSpan = 20;
     float hunger = 0f;
@@ -31,6 +34,7 @@ public class Rabbit_Entity : MonoBehaviour
         status = RabbitStatus.child;
     }
     private void Update() {
+        tarScale = status==RabbitStatus.child? 0.1f:0.4f;
         age+=Time.deltaTime;
         if(isBabysit) grow-=Time.deltaTime;
         if(grow<=0&&status==RabbitStatus.child) status = RabbitStatus.middle;
@@ -42,7 +46,7 @@ public class Rabbit_Entity : MonoBehaviour
         if(task!=null && status == RabbitStatus.middle){
             Move(task);
         }
-        transform.localScale=isRight?Vector3.one:new Vector3(-1,1,1);
+        transform.localScale=scale*(isRight?Vector3.one:new Vector3(-1,1,1));
     }
     public void Babysit(Rabbit_Entity other,bool isNear){
         if(GetComponent<Rabbit_Entity>().status==RabbitStatus.child && other.status!=RabbitStatus.child){
@@ -62,7 +66,8 @@ public class Rabbit_Entity : MonoBehaviour
         int num = Random.Range(1,3);
         for(int i=0;i<num;i++){
         //if(kids[i]!=null) {
-            GameObject born = Instantiate((GameObject)Resources.Load("Rabbit"),GameObject.Find("Rabbits").transform);
+            GameObject born = Instantiate(GameObject.Find("Manager").GetComponent<GameManager>().rabbitPrefab,transform.position,Quaternion.identity);
+            born.transform.SetParent(GameObject.Find("Rabbits").transform);
             born.GetComponent<Rabbit_Entity>().isMale = Random.Range(0,3)==0;
             Color rdm = new Color(Random.Range(0,1f),Random.Range(0,1f),Random.Range(0,1f),1f);
             born.GetComponent<Rabbit_Entity>().mother = gameObject.GetComponent<Rabbit_Entity>();
@@ -80,7 +85,7 @@ public class Rabbit_Entity : MonoBehaviour
     }
     IEnumerator ProduceTimer(int secs,Rabbit_Entity other){
         yield return new WaitForSeconds(secs);
-        //isPreg = false;
+        isPreg = false;
         Reproduce(other);
     }
     IEnumerator DeathTimer(int secs){
