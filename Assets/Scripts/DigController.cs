@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DigController : MonoBehaviour
 {
+    public GameObject work;
     SpriteRenderer Triangle;
     Vector2 potatoPoint;
     Vector2 holePoint;
@@ -75,6 +76,14 @@ public class DigController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90);
 
         //鼠标直接挖掘
+        /*
+        //if (Input.GetMouseButtonDown(0))
+        if(GameManager.chosenOne!=null&&GameManager.chosenOne.GetComponent<Rabbit_Entity>().toDo == Rabbit_Entity.Assignment.Dig){
+            if (Input.GetMouseButtonDown(0)){
+
+            }
+        }
+        */
         if (Input.GetMouseButtonDown(0))
         {
             if (!CanSow)

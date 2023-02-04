@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameObject chosenOne;
     public GameObject rabbitPrefab;
     public GameObject initPos;
+    public GameObject workPrefab;
     public static int totalIndex = 0;
     private void Start() {
         GenerateRabbit(2);
@@ -61,5 +62,17 @@ public class GameManager : MonoBehaviour
             totalIndex+=1;
             RabbitMap.MakeANode(item,item.GetComponent<Rabbit_Entity>().generation);
         }
+    }
+
+    public void DigButton(){
+        chosenOne.GetComponent<Rabbit_Entity>().toDo = Rabbit_Entity.Assignment.Dig;
+
+    }
+    public enum WorkType{
+        Dig
+    }
+    public void GenerateWork(Transform value){
+        GameObject item = Instantiate(workPrefab,value.position, Quaternion.identity);
+        item.GetComponent<Work_Entity>();
     }
 }

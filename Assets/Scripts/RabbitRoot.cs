@@ -37,7 +37,8 @@ public class RabbitRoot : MonoBehaviour
             Instantiate(generations,transform);
         }
         for(int i=0;i<RabbitMap.rootTree.Count;i++){
-            GameObject item = Instantiate(element,transform.GetChild(RabbitMap.rootTree[i].generation));
+            GameObject item = Instantiate(element);
+            item.transform.SetParent(transform.GetChild(RabbitMap.rootTree[i].generation));
             Debug.Log(RabbitMap.rootTree[i].generation);
             item.GetComponent<UnityEngine.UI.Image>().color = RabbitMap.rootTree[i].gene;
             elements.Add(item);

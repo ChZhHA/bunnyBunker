@@ -5,6 +5,10 @@ using UnityEngine.EventSystems;
 
 public class Rabbit_Entity : MonoBehaviour
 {
+    public enum Assignment{
+        Idle,Dig
+    }
+    public Assignment toDo;
     public float scale = 0.4f;
     float tarScale;
     public RabbitStatus status;
@@ -30,11 +34,14 @@ public class Rabbit_Entity : MonoBehaviour
 
     private void OnEnable() {
         //GetComponent<SpriteRenderer>().color = gene;
-        //StartCoroutine(DeathTimer(lifeSpan));
+        StartCoroutine(DeathTimer(lifeSpan));
         status = RabbitStatus.child;
     }
     private void Update() {
+        if(isDead) Destroy(gameObject);
+        if(isDead) return;
         tarScale = status==RabbitStatus.child? 0.1f:0.4f;
+        scale = Mathf.Lerp(scale,tarScale,0.01f);
         age+=Time.deltaTime;
         if(isBabysit) grow-=Time.deltaTime;
         if(grow<=0&&status==RabbitStatus.child) status = RabbitStatus.middle;
@@ -90,7 +97,9 @@ public class Rabbit_Entity : MonoBehaviour
     }
     IEnumerator DeathTimer(int secs){
         yield return new WaitForSeconds(secs);
-        Destroy(gameObject);
+        GetComponent<Animator>().SetBool("isDead",true);
+        yield return new WaitForSeconds(1);
+        isDead=true;
     }
 
 
@@ -112,6 +121,9 @@ public class Rabbit_Entity : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(isRight?-1:1,5);
             //GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
         //}
+    }
+    public void Death(){
+        isDead=true;
     }
 
     public enum RabbitStatus{

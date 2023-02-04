@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f35800ae46b204807a55b256e31b5106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  work: {fileID: 6135504711751967869, guid: 4517e42401cf1314f943adcdcd912e29, type: 3}
+  CanSow: 0
+  PotatoPrefebs: []
+  CarrotPrefebs: []
+  HolePrefebs: []
 --- !u!1 &1488059459596066407
 GameObject:
   m_ObjectHideFlags: 0

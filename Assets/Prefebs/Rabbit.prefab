@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211211845383241936}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.002, y: -0.95, z: 0}
-  m_LocalScale: {x: 1.0165, y: 2.5591998, z: 0.5}
+  m_LocalPosition: {x: 0.8, y: -2.143, z: 0}
+  m_LocalScale: {x: 1.0165, y: 2.0729518, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1211211846113438628}
@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 1211211846113438630}
   - component: {fileID: 1211211846113438629}
   - component: {fileID: 1211211846113438618}
+  - component: {fileID: 4445705185902434162}
   m_Layer: 11
   m_Name: Rabbit
   m_TagString: Rabbits
@@ -203,7 +204,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 7ed9fb0f3788b4d4b8e0c251c77e1273, type: 3}
+  m_Sprite: {fileID: -1312534678, guid: 06e09893e45a9464293d92e7a2779cb4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -226,6 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eae035d88ca97547be9a820afe30663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toDo: 0
   scale: 0.4
   status: 0
   generation: 0
@@ -273,9 +275,29 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08747637, y: -0.7216817}
-  m_Size: {x: 2.5308423, y: 3.1372027}
+  m_Offset: {x: 0.0039454103, y: -2.6202528}
+  m_Size: {x: 1.376697, y: 1.3766971}
   m_Direction: 0
+--- !u!95 &4445705185902434162
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211211846113438625}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0a52885ea5824f04f9aa879e4d8440bb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1739464307649659402
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +397,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.26}
   serializedVersion: 2
   m_Radius: 0.5
 --- !u!114 &1649207154644005509
@@ -406,7 +428,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6111404758084028272
 Transform:
   m_ObjectHideFlags: 0
@@ -415,7 +437,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7331248194740776036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.9, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -462,7 +484,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 11
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
