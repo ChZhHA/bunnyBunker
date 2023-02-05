@@ -43,7 +43,7 @@ public class Counter : MonoBehaviour
         
         Debug.Log("线");
         pa = GetComponent<RectTransform>();
-        pb = parent.GetComponent<RectTransform>();
+        if(parent!=null) pb = parent.GetComponent<RectTransform>();
         if(pa.GetComponent<Counter>().generation!=0){
             var rP = pa.anchoredPosition;
             var tp = pa.position;
