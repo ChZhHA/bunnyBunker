@@ -121,8 +121,8 @@ public class Rabbit_Entity : MonoBehaviour
         isDead=true;
     }
 
-    public void Feed(){
-        
+    public void Feed(GameObject food){
+
     }
 
     void Move(GameObject target){
