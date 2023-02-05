@@ -50,6 +50,10 @@ public class GameManager : MonoBehaviour
             isWin=false;
             EndGame(false);
         }
+        if(GameObject.Find("Main Camera").transform.position.y<-80){
+            endGame=true;
+            EndGame(true);
+        }
         /*
         if(chosenOne!=null && Input.GetMouseButtonDown(1)){
             //Debug.Log("work");
