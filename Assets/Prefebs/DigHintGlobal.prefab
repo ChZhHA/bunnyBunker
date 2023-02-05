@@ -45,11 +45,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f35800ae46b204807a55b256e31b5106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  work: {fileID: 6135504711751967869, guid: 4517e42401cf1314f943adcdcd912e29, type: 3}
+  potatoPoint: {x: 0, y: 0}
+  direction: {x: 0, y: 0}
   CanSow: 0
-  PotatoPrefebs: []
-  CarrotPrefebs: []
-  HolePrefebs: []
+  PotatoPrefebs:
+  - {fileID: 1196957824362538875, guid: 2e7e7f258ffca4a2db6c4416288fb4de, type: 3}
+  - {fileID: 1196957824362538875, guid: c154cf7ed20454db9aec51e91277e0b9, type: 3}
+  CarrotPrefebs:
+  - {fileID: 4128266576694520284, guid: 816772cf8644d4844b7485118523f63c, type: 3}
+  HolePrefebs:
+  - {fileID: 8037086296925289776, guid: 7e35a0d98926044a4b2136c1666d4b80, type: 3}
+  mode: 0
 --- !u!1 &1488059459596066407
 GameObject:
   m_ObjectHideFlags: 0

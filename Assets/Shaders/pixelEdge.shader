@@ -5,6 +5,8 @@ Shader "Shader_Effect/S_PixelPerfect"
         [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
         _Enable ("Enable", Int) = 0
         _Color ("Tint", Color) = (1,1,1,1)
+        _Progress ("进度", Range(0.0,1.0)) = 0
+        _Bum ("加深",Range(0.0,1.0)) = 0.2
         _PixelNum ("像素数", Integer) = 128
         _Rotate ("旋转", Float) = 0
         _Temp ("temp",Range(0,1)) = 0.5
@@ -103,6 +105,8 @@ Shader "Shader_Effect/S_PixelPerfect"
             float _EdgeSize;
             float4 _EdgeColor;
             int _Enable;
+            float _Progress;
+            float _Bum;
             fixed4 frag (v2f i) : SV_Target
             {
                 // return tex2D(_MainTex, i.texcoord);
@@ -134,7 +138,7 @@ Shader "Shader_Effect/S_PixelPerfect"
                 col.a= _Enable ? step(0.1,colSamp.a)* step(0,_EdgeSize-0.001) + (1-step(0,_EdgeSize-0.001))*step(0.5,col1.a) : col1.a;
                 float flag = step(col1.a, colSamp.a) * step(col1.a, 0.1);
                 col.rgb= flag * _EdgeColor.rgb+ (1- flag) *col1.rgb * i.color;
-
+                col.a= max(0,col.a-step( 1 - i.texcoord.x, 1 - _Progress ) * _Bum);
                 // col.rgb=step(col1.a,col2.a) * _EdgeColor.rgb+step(col2.a,col1.a)*col1.rgb;
                 
 
