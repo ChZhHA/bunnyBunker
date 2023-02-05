@@ -35,6 +35,7 @@ public class DeathZoneController : MonoBehaviour
                 Destroy(item.gameObject);
             }
         }
+        if(GameManager.endGame) gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {

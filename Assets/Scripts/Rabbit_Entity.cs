@@ -21,7 +21,7 @@ public class Rabbit_Entity : MonoBehaviour
     public bool isDead=false;
     float grow = 5f;
     int lifeSpan = 20;
-    float hunger = 0f;
+    float hunger = 7f;
     bool onFeed = false;
     GameObject tarFood;
     public bool isMale;
@@ -47,12 +47,12 @@ public class Rabbit_Entity : MonoBehaviour
 
         if(isDead || GameManager.endGame) return;
         tarScale = status==RabbitStatus.child? 0.1f:0.4f;
-        scale = Mathf.Lerp(scale,tarScale,0.01f);
+        if(status!=RabbitStatus.dead)scale = Mathf.Lerp(scale,tarScale,0.01f);
         age+=Time.deltaTime;
-        if(hunger>0f)hunger-=Time.deltaTime;
+        if(hunger>0f)hunger-=Time.deltaTime*1.2f;
         if(isBabysit) grow-=Time.deltaTime;
         if(grow<=0&&status==RabbitStatus.child) status = RabbitStatus.middle;
-        if(status==RabbitStatus.middle && age>=40){
+        if(status==RabbitStatus.middle && age>=30){
             status = RabbitStatus.old;
         }
         GetComponent<SpriteRenderer>().material.SetInt("_Enable",1);
@@ -65,17 +65,24 @@ public class Rabbit_Entity : MonoBehaviour
         /*
         if(task!=null && status == RabbitStatus.middle){
             Move(task);
-        }*/
+        }
+
         if(Input.GetMouseButtonDown(0)){
             Debug.Log("repel");
             Vector3 aim = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             GetComponent<Rigidbody2D>().AddForce(5000*(transform.position-aim).normalized/Vector2.Distance(transform.position,aim));
-        }
-
+        }*/
+        if(hunger<0.1)Death();
         if(tarFood!=null && Vector2.Distance(transform.position,tarFood.transform.position)<2) hunger+=Time.deltaTime*4;
+        GetComponent<Animator>().SetBool("isFed",(tarFood!=null && Vector2.Distance(transform.position,tarFood.transform.position)<2));
+        hunger = hunger>10? 10:hunger;
         transform.GetChild(2).GetChild(0).transform.localScale = new Vector3(hunger/10,1,1);
+        transform.GetChild(2).gameObject.SetActive(hunger>0);
 
-        transform.localScale=scale*(isRight?Vector3.one:new Vector3(-1,1,1));
+        transform.localScale=scale*(isMale?Vector3.one:new Vector3(-1,1,1));
+        if(transform.position.y<-80&&status!=RabbitStatus.dead){
+            GameObject.Find("Manager").GetComponent<GameManager>().EndGame(true);
+        }
     }
     public void Babysit(Rabbit_Entity other,bool isNear){
         if(GetComponent<Rabbit_Entity>().status==RabbitStatus.child && other.status!=RabbitStatus.child){
@@ -86,13 +93,14 @@ public class Rabbit_Entity : MonoBehaviour
     public void Breed(Rabbit_Entity other){
         if(!GetComponent<Rabbit_Entity>().isMale && other.isMale && GetComponent<Rabbit_Entity>() && other.status==RabbitStatus.middle 
         && GetComponent<Rabbit_Entity>().status==RabbitStatus.middle
-        && GetComponent<Rabbit_Entity>().isPreg == false){
+        && GetComponent<Rabbit_Entity>().isPreg == false && hunger>2){
             GetComponent<Rabbit_Entity>().isPreg = true;
             StartCoroutine(ProduceTimer(5,other));
+            GetComponent<Animator>().SetTrigger("Spin");
         }
     }
     public void Reproduce(Rabbit_Entity other){
-        int num = Random.Range(1,3);
+        int num = Random.Range(1,4);
         for(int i=0;i<num;i++){
         //if(kids[i]!=null) {
             GameObject born = Instantiate(GameObject.Find("Manager").GetComponent<GameManager>().rabbitPrefab,transform.position,Quaternion.identity);
@@ -120,9 +128,10 @@ public class Rabbit_Entity : MonoBehaviour
         Reproduce(other);
     }
     public IEnumerator DeathTimer(int secs){
+        status= RabbitStatus.dead;
         yield return new WaitForSeconds(secs);
+        
         GetComponent<Animator>().SetBool("isDead",true);
-        GetComponent<Collider2D>().enabled=false;
         yield return new WaitForSeconds(1);
         isDead=true;
     }
@@ -145,16 +154,15 @@ public class Rabbit_Entity : MonoBehaviour
     public void Jump(Collider2D other){
         //if(GetComponent<Collider2D>().IsTouching(other)){
             //Debug.Log("jump");
-            GetComponent<Rigidbody2D>().velocity = new Vector2(isRight?-1:1,5);
+            if(status!=RabbitStatus.dead)GetComponent<Rigidbody2D>().velocity = new Vector2(isRight?-1:1,5);
             //GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
         //}
     }
     public void Death(){
-        isDead=true;
         StartCoroutine(DeathTimer(1));
     }
 
     public enum RabbitStatus{
-        child,middle,old
+        child,middle,old,dead
     }
 }

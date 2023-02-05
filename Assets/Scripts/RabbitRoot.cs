@@ -38,7 +38,7 @@ public class RabbitRoot : MonoBehaviour
         }
         for(int i=0;i<RabbitMap.rootTree.Count;i++){
             GameObject item = Instantiate(element);
-            item.transform.SetParent(transform.GetChild(1+RabbitMap.rootTree[i].generation));
+            if(transform.GetChild(1+RabbitMap.rootTree[i].generation)!=null) item.transform.SetParent(transform.GetChild(1+RabbitMap.rootTree[i].generation));
             Debug.Log(RabbitMap.rootTree[i].generation);
             item.GetComponent<UnityEngine.UI.Image>().color = RabbitMap.rootTree[i].gene;
             elements.Add(item);
@@ -76,17 +76,11 @@ public class RabbitRoot : MonoBehaviour
         StartCoroutine(View());
 
     }
-    public float GetAngle(RectTransform pb, RectTransform pa)
-    {
-        var dir = pb.position - pa.position;
-        var dirV2 = new Vector2(dir.x, dir.y);
-        var angle = Vector2.SignedAngle(dirV2, Vector2.down);
-        return angle;
-    }
+
     IEnumerator View(){
         yield return new WaitForSeconds(3);
-        tarA = 0.2f;
-        tarS=0.5f;
+        tarA = 0.9f;
+        tarS=0.8f;
     }
     
 }
