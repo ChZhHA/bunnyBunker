@@ -52,7 +52,9 @@ Material:
     m_Floats:
     - _EnableExternalAlpha: 0
     - _moveSpeed: 20
+    - _safeDis: -200
     m_Colors:
+    - _AddColor: {r: 0.2736739, g: 0.38591367, b: 0.4716981, a: 0.24313726}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
