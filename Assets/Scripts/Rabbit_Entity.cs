@@ -47,6 +47,7 @@ public class Rabbit_Entity : MonoBehaviour
         tarScale = status==RabbitStatus.child? 0.1f:0.4f;
         scale = Mathf.Lerp(scale,tarScale,0.01f);
         age+=Time.deltaTime;
+        if(hunger>0f)hunger-=Time.deltaTime;
         if(isBabysit) grow-=Time.deltaTime;
         if(grow<=0&&status==RabbitStatus.child) status = RabbitStatus.middle;
         if(status==RabbitStatus.middle && age>=40){
@@ -120,7 +121,9 @@ public class Rabbit_Entity : MonoBehaviour
         isDead=true;
     }
 
-
+    public void Feed(){
+        
+    }
 
     void Move(GameObject target){
         if(Vector2.Distance(GetComponent<Rigidbody2D>().position,target.transform.position)>=1){

@@ -8,5 +8,8 @@ public class AttractRabbit : MonoBehaviour
         if(other.GetComponentInParent<Rabbit_Entity>()!=null){
             other.GetComponentInParent<Rigidbody2D>().AddForce(20*(transform.position-other.transform.position).normalized);///Vector2.Distance(transform.position,other.transform.position));
         }
+        if(gameObject.tag=="Player"){
+
+        }
     }
 }
