@@ -27,9 +27,11 @@ Material:
     m_Ints:
     - _PixelNum: 128
     m_Floats:
+    - _Bum: 0.2
     - _ColorMask: 15
     - _EdgeSize: 4.95
     - _Enable: 0
+    - _Progress: 1
     - _Rotate: 0
     - _Stencil: 0
     - _StencilComp: 8
