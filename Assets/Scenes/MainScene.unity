@@ -3365,18 +3365,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1488059459308763849, guid: 5fe0803a10a6a46328e3c166f8b7511c, type: 3}
-      propertyPath: mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1488059459308763849, guid: 5fe0803a10a6a46328e3c166f8b7511c, type: 3}
-      propertyPath: CarrotEdge
-      value: 
-      objectReference: {fileID: 564954920}
-    - target: {fileID: 1488059459308763849, guid: 5fe0803a10a6a46328e3c166f8b7511c, type: 3}
-      propertyPath: PotatoEdge
-      value: 
-      objectReference: {fileID: 271558616}
     - target: {fileID: 1488059459308763851, guid: 5fe0803a10a6a46328e3c166f8b7511c, type: 3}
       propertyPath: m_Name
       value: DigHintGlobal
