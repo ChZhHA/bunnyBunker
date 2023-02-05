@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DigController : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class DigController : MonoBehaviour
 
     public enum OperateMode
     {
-        Potato, Carrot
+        Null, Carrot, Potato
     }
 
     public OperateMode mode;
@@ -47,10 +48,10 @@ public class DigController : MonoBehaviour
         //判断鼠标是否在萝卜附近
         if (CarrotController.Select != null)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && EventSystem.current.currentSelectedGameObject == null)
                 CarrotController.Select.Dig();
         }
-        else
+        else if (mode != OperateMode.Null)
         {
 
             //找到离鼠标最近的挖掘点
@@ -97,7 +98,7 @@ public class DigController : MonoBehaviour
                 }
                 transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90);
                 //鼠标直接挖掘
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && EventSystem.current.currentSelectedGameObject == null)
                 {
                     if (!CanSow)
                     {

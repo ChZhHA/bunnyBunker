@@ -36,4 +36,11 @@ public class DeathZoneController : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        Rabbit_Entity rabbit;
+        if(other.TryGetComponent<Rabbit_Entity>(out rabbit)){
+            other.GetComponent<Rabbit_Entity>().Death();
+        }
+    }
 }

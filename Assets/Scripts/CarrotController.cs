@@ -51,6 +51,7 @@ namespace Assets.Scripts
             {
                 //TODO 获得萝卜
                 Select = null;
+                GameManager.carrotCounter+=3;
                 Destroy(gameObject);
             }
         }
