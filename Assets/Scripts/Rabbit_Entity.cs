@@ -5,6 +5,12 @@ using UnityEngine.EventSystems;
 
 public class Rabbit_Entity : MonoBehaviour
 {
+    /*
+    public enum Assignment{
+        Idle,Dig
+    }
+    public Assignment toDo;
+    */
     public float scale = 0.4f;
     float tarScale;
     public RabbitStatus status;
@@ -22,7 +28,7 @@ public class Rabbit_Entity : MonoBehaviour
     bool isRight = true;
     //float laziness =1f;
     public Color gene;
-    public GameObject task;
+    //public GameObject task;
     [SerializeField] Collider2D face;
     public Rabbit_Entity father = null;
     public Rabbit_Entity mother = null;
@@ -30,21 +36,38 @@ public class Rabbit_Entity : MonoBehaviour
 
     private void OnEnable() {
         //GetComponent<SpriteRenderer>().color = gene;
-        //StartCoroutine(DeathTimer(lifeSpan));
+        StartCoroutine(DeathTimer(lifeSpan));
+        transform.localScale=Vector3.one*0.1f;
         status = RabbitStatus.child;
     }
     private void Update() {
+        if(isDead) Destroy(gameObject);
+
+        if(isDead || GameManager.endGame) return;
         tarScale = status==RabbitStatus.child? 0.1f:0.4f;
+        scale = Mathf.Lerp(scale,tarScale,0.01f);
         age+=Time.deltaTime;
+        if(hunger>0f)hunger-=Time.deltaTime;
         if(isBabysit) grow-=Time.deltaTime;
         if(grow<=0&&status==RabbitStatus.child) status = RabbitStatus.middle;
         if(status==RabbitStatus.middle && age>=40){
             status = RabbitStatus.old;
         }
+        GetComponent<SpriteRenderer>().material.SetInt("_Enable",1);
+        GetComponent<SpriteRenderer>().material.SetColor("_EdgeColor",Color.black);
+        //if(gameObject==GameManager.chosenOne) GetComponent<SpriteRenderer>().material.SetColor("_EdgeColor",Color.red);
+        //GetComponent<SpriteRenderer>().material.SetColor("_EdgeColor",Color.black);
+
         //GetComponent<SpriteRenderer>().color = GameManager.chosenOne == gameObject? Color.red:Color.white;
         //GetComponent<SpriteRenderer>().color = gene;
+        /*
         if(task!=null && status == RabbitStatus.middle){
             Move(task);
+        }*/
+        if(Input.GetMouseButtonDown(0)){
+            Debug.Log("repel");
+            Vector3 aim = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            GetComponent<Rigidbody2D>().AddForce(5000*(transform.position-aim).normalized/Vector2.Distance(transform.position,aim));
         }
         transform.localScale=scale*(isRight?Vector3.one:new Vector3(-1,1,1));
     }
@@ -68,6 +91,7 @@ public class Rabbit_Entity : MonoBehaviour
         //if(kids[i]!=null) {
             GameObject born = Instantiate(GameObject.Find("Manager").GetComponent<GameManager>().rabbitPrefab,transform.position,Quaternion.identity);
             born.transform.SetParent(GameObject.Find("Rabbits").transform);
+            born.transform.localScale = Vector3.one*0.1f;
             born.GetComponent<Rabbit_Entity>().isMale = Random.Range(0,3)==0;
             Color rdm = new Color(Random.Range(0,1f),Random.Range(0,1f),Random.Range(0,1f),1f);
             born.GetComponent<Rabbit_Entity>().mother = gameObject.GetComponent<Rabbit_Entity>();
@@ -75,6 +99,7 @@ public class Rabbit_Entity : MonoBehaviour
             born.GetComponent<Rabbit_Entity>().father = other;
             born.GetComponent<Rabbit_Entity>().motherIndex = gameObject.GetComponent<Rabbit_Entity>().index;
             born.GetComponent<SpriteRenderer>().color = born.GetComponent<Rabbit_Entity>().gene;
+            born.GetComponent<SpriteRenderer>().material.SetColor("_Color",born.GetComponent<Rabbit_Entity>().gene);
             born.GetComponent<Rabbit_Entity>().generation = 1+(other.generation>gameObject.GetComponent<Rabbit_Entity>().generation? other.generation:gameObject.GetComponent<Rabbit_Entity>().generation);
             Debug.Log(born.GetComponent<Rabbit_Entity>().generation);
             born.GetComponent<Rabbit_Entity>().index = RabbitMap.rootTree.Count;
@@ -90,10 +115,15 @@ public class Rabbit_Entity : MonoBehaviour
     }
     IEnumerator DeathTimer(int secs){
         yield return new WaitForSeconds(secs);
-        Destroy(gameObject);
+        GetComponent<Animator>().SetBool("isDead",true);
+        GetComponent<Collider2D>().enabled=false;
+        yield return new WaitForSeconds(1);
+        isDead=true;
     }
 
+    public void Feed(GameObject food){
 
+    }
 
     void Move(GameObject target){
         if(Vector2.Distance(GetComponent<Rigidbody2D>().position,target.transform.position)>=1){
@@ -112,6 +142,9 @@ public class Rabbit_Entity : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(isRight?-1:1,5);
             //GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
         //}
+    }
+    public void Death(){
+        isDead=true;
     }
 
     public enum RabbitStatus{
