@@ -52,7 +52,7 @@ public class Rabbit_Entity : MonoBehaviour
         if(hunger>0f)hunger-=Time.deltaTime*1.2f;
         if(isBabysit) grow-=Time.deltaTime;
         if(grow<=0&&status==RabbitStatus.child) status = RabbitStatus.middle;
-        if(status==RabbitStatus.middle && age>=40){
+        if(status==RabbitStatus.middle && age>=30){
             status = RabbitStatus.old;
         }
         GetComponent<SpriteRenderer>().material.SetInt("_Enable",1);
@@ -93,14 +93,14 @@ public class Rabbit_Entity : MonoBehaviour
     public void Breed(Rabbit_Entity other){
         if(!GetComponent<Rabbit_Entity>().isMale && other.isMale && GetComponent<Rabbit_Entity>() && other.status==RabbitStatus.middle 
         && GetComponent<Rabbit_Entity>().status==RabbitStatus.middle
-        && GetComponent<Rabbit_Entity>().isPreg == false){
+        && GetComponent<Rabbit_Entity>().isPreg == false && hunger>2){
             GetComponent<Rabbit_Entity>().isPreg = true;
             StartCoroutine(ProduceTimer(5,other));
             GetComponent<Animator>().SetTrigger("Spin");
         }
     }
     public void Reproduce(Rabbit_Entity other){
-        int num = Random.Range(1,3);
+        int num = Random.Range(1,4);
         for(int i=0;i<num;i++){
         //if(kids[i]!=null) {
             GameObject born = Instantiate(GameObject.Find("Manager").GetComponent<GameManager>().rabbitPrefab,transform.position,Quaternion.identity);
