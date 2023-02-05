@@ -79,7 +79,7 @@ public class RabbitRoot : MonoBehaviour
 
     IEnumerator View(){
         yield return new WaitForSeconds(3);
-        tarA = 0.2f;
+        tarA = 0.9f;
         tarS=0.8f;
     }
     

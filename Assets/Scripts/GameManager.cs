@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject finish;
     public static GameManager Instance;
     public static bool endGame;
     public GameObject rootPanel;
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject workPrefab;
     public static int totalIndex = 0;
     public WorkType current = WorkType.Potato;
+    public bool isWin=false;
     private void Start()
     {
         Instance = this;
@@ -41,14 +43,12 @@ public class GameManager : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Space)&&!endGame) {
             endGame=true;
-            rootPanel.SetActive(true);
-            rootPanel.GetComponentInChildren<RabbitRoot>().GenerateRoot(totalIndex - 1);
-            //root.GenerateRoot(GameManager.totalIndex-1);
+            EndGame(false);
         }
         if(GameObject.Find("Rabbit(Clone)")==null &&!endGame){
             endGame=true;
-            rootPanel.SetActive(true);
-            rootPanel.GetComponentInChildren<RabbitRoot>().GenerateRoot(totalIndex-1);
+            isWin=false;
+            EndGame(false);
         }
         /*
         if(chosenOne!=null && Input.GetMouseButtonDown(1)){
@@ -85,6 +85,19 @@ public class GameManager : MonoBehaviour
             totalIndex += 1;
             RabbitMap.MakeANode(item, item.GetComponent<Rabbit_Entity>().generation);
         }
+    }
+    public void EndGame(bool win){
+        Debug.Log(win);
+        endGame = true;
+        isWin = win;
+        StartCoroutine(Ending());
+    }
+    IEnumerator Ending(){
+        yield return new WaitForEndOfFrame();
+        finish.SetActive(true);
+        yield return new WaitForSeconds(2);
+        rootPanel.SetActive(true);
+        rootPanel.GetComponentInChildren<RabbitRoot>().GenerateRoot(totalIndex-1);
     }
 
     public void DigButton(int i)

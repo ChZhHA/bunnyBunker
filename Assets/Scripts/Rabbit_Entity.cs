@@ -80,6 +80,9 @@ public class Rabbit_Entity : MonoBehaviour
         transform.GetChild(2).gameObject.SetActive(hunger>0);
 
         transform.localScale=scale*(isMale?Vector3.one:new Vector3(-1,1,1));
+        if(transform.position.y<-80&&status!=RabbitStatus.dead){
+            GameObject.Find("Manager").GetComponent<GameManager>().EndGame(true);
+        }
     }
     public void Babysit(Rabbit_Entity other,bool isNear){
         if(GetComponent<Rabbit_Entity>().status==RabbitStatus.child && other.status!=RabbitStatus.child){
