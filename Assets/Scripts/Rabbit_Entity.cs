@@ -21,7 +21,7 @@ public class Rabbit_Entity : MonoBehaviour
     public bool isDead=false;
     float grow = 5f;
     int lifeSpan = 20;
-    float hunger = 10f;
+    float hunger = 7f;
     bool onFeed = false;
     GameObject tarFood;
     public bool isMale;
@@ -47,9 +47,9 @@ public class Rabbit_Entity : MonoBehaviour
 
         if(isDead || GameManager.endGame) return;
         tarScale = status==RabbitStatus.child? 0.1f:0.4f;
-        scale = Mathf.Lerp(scale,tarScale,0.01f);
+        if(status!=RabbitStatus.dead)scale = Mathf.Lerp(scale,tarScale,0.01f);
         age+=Time.deltaTime;
-        if(hunger>0f)hunger-=Time.deltaTime;
+        if(hunger>0f)hunger-=Time.deltaTime*1.2f;
         if(isBabysit) grow-=Time.deltaTime;
         if(grow<=0&&status==RabbitStatus.child) status = RabbitStatus.middle;
         if(status==RabbitStatus.middle && age>=40){
