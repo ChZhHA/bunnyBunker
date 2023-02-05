@@ -49,7 +49,7 @@ public class Rabbit_Entity : MonoBehaviour
         tarScale = status==RabbitStatus.child? 0.1f:0.4f;
         if(status!=RabbitStatus.dead)scale = Mathf.Lerp(scale,tarScale,0.01f);
         age+=Time.deltaTime;
-        if(hunger>0f)hunger-=Time.deltaTime*0.2f;
+        if(hunger>0f)hunger-=Time.deltaTime*0.4f;
         if(isBabysit) grow-=Time.deltaTime;
         if(grow<=0&&status==RabbitStatus.child) status = RabbitStatus.middle;
         if(status==RabbitStatus.middle && age>=30){
@@ -93,7 +93,7 @@ public class Rabbit_Entity : MonoBehaviour
     public void Breed(Rabbit_Entity other){
         if(!GetComponent<Rabbit_Entity>().isMale && other.isMale && GetComponent<Rabbit_Entity>() && other.status==RabbitStatus.middle 
         && GetComponent<Rabbit_Entity>().status==RabbitStatus.middle
-        && GetComponent<Rabbit_Entity>().isPreg == false && hunger>4){
+        && GetComponent<Rabbit_Entity>().isPreg == false && hunger>6){
             GetComponent<Rabbit_Entity>().isPreg = true;
             StartCoroutine(ProduceTimer(5,other));
             GetComponent<Animator>().SetTrigger("Spin");

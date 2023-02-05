@@ -26,7 +26,7 @@ public class Counter : MonoBehaviour
     private void OnEnable() {
         //StartCoroutine(CoWaitForPosition());
         pa = GetComponent<RectTransform>();
-        if(parent!=null) pb = parent.GetComponent<RectTransform>();
+        pb = parent.GetComponent<RectTransform>();
         if(pa.GetComponent<Counter>().generation!=0){
             var rP = pa.anchoredPosition;
             var tp = pa.position;
@@ -43,7 +43,7 @@ public class Counter : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         pa = GetComponent<RectTransform>();
-        if(parent!=null) pb = parent.GetComponent<RectTransform>();
+        pb = parent.GetComponent<RectTransform>();
         if(pa.GetComponent<Counter>().generation!=0){
             var rP = pa.anchoredPosition;
             var tp = pa.position;
