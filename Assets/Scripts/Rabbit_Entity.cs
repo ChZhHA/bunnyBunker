@@ -19,9 +19,11 @@ public class Rabbit_Entity : MonoBehaviour
     public int motherIndex;
     float age;
     public bool isDead=false;
-    float grow = 10f;
+    float grow = 5f;
     int lifeSpan = 20;
     float hunger = 0f;
+    bool onFeed = false;
+    GameObject tarFood;
     public bool isMale;
     [SerializeField]bool isPreg = false;
     bool isBabysit = false;
@@ -36,7 +38,7 @@ public class Rabbit_Entity : MonoBehaviour
 
     private void OnEnable() {
         //GetComponent<SpriteRenderer>().color = gene;
-        StartCoroutine(DeathTimer(lifeSpan));
+        //StartCoroutine(DeathTimer(lifeSpan));
         transform.localScale=Vector3.one*0.1f;
         status = RabbitStatus.child;
     }
@@ -69,6 +71,10 @@ public class Rabbit_Entity : MonoBehaviour
             Vector3 aim = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             GetComponent<Rigidbody2D>().AddForce(5000*(transform.position-aim).normalized/Vector2.Distance(transform.position,aim));
         }
+
+        if(tarFood!=null && Vector2.Distance(transform.position,tarFood.transform.position)<2) hunger+=Time.deltaTime*4;
+        transform.GetChild(2).GetChild(0).transform.localScale = new Vector3(hunger/10,1,1);
+
         transform.localScale=scale*(isRight?Vector3.one:new Vector3(-1,1,1));
     }
     public void Babysit(Rabbit_Entity other,bool isNear){
@@ -108,12 +114,12 @@ public class Rabbit_Entity : MonoBehaviour
         }
         kids = new GameObject[3];
     }
-    IEnumerator ProduceTimer(int secs,Rabbit_Entity other){
+    public IEnumerator ProduceTimer(int secs,Rabbit_Entity other){
         yield return new WaitForSeconds(secs);
-        isPreg = false;
+        if(hunger>0)isPreg = false;
         Reproduce(other);
     }
-    IEnumerator DeathTimer(int secs){
+    public IEnumerator DeathTimer(int secs){
         yield return new WaitForSeconds(secs);
         GetComponent<Animator>().SetBool("isDead",true);
         GetComponent<Collider2D>().enabled=false;
@@ -122,7 +128,7 @@ public class Rabbit_Entity : MonoBehaviour
     }
 
     public void Feed(GameObject food){
-
+        tarFood = food;
     }
 
     void Move(GameObject target){
@@ -145,6 +151,7 @@ public class Rabbit_Entity : MonoBehaviour
     }
     public void Death(){
         isDead=true;
+        StartCoroutine(DeathTimer(1));
     }
 
     public enum RabbitStatus{
