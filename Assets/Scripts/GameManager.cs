@@ -32,11 +32,16 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
-        if(Input.GetKeyDown(KeyCode.Space)) {
+        if(Input.GetKeyDown(KeyCode.Space)&&!endGame) {
             endGame=true;
             rootPanel.SetActive(true);
             rootPanel.GetComponentInChildren<RabbitRoot>().GenerateRoot(totalIndex-1);
             //root.GenerateRoot(GameManager.totalIndex-1);
+        }
+        if(GameObject.Find("Rabbit(Clone)")==null &&!endGame){
+            endGame=true;
+            rootPanel.SetActive(true);
+            rootPanel.GetComponentInChildren<RabbitRoot>().GenerateRoot(totalIndex-1);
         }
         /*
         if(chosenOne!=null && Input.GetMouseButtonDown(1)){

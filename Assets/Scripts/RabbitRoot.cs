@@ -76,13 +76,7 @@ public class RabbitRoot : MonoBehaviour
         StartCoroutine(View());
 
     }
-    public float GetAngle(RectTransform pb, RectTransform pa)
-    {
-        var dir = pb.position - pa.position;
-        var dirV2 = new Vector2(dir.x, dir.y);
-        var angle = Vector2.SignedAngle(dirV2, Vector2.down);
-        return angle;
-    }
+
     IEnumerator View(){
         yield return new WaitForSeconds(3);
         tarA = 0.2f;
