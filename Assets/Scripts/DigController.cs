@@ -78,18 +78,19 @@ public class DigController : MonoBehaviour
             }
             transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90);
             //鼠标直接挖掘
-            /*
-            if (Input.GetMouseButtonDown(0))
+            
+            if (Input.GetMouseButtonDown(0)) //&& (Vector3.Distance(pos,holePoint)<3|| Vector3.Distance(pos,potatoPoint)<3))
             {
+                Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 if (!CanSow)
                 {
-                    MakeAHole(holePoint, direction);
+                    if((Vector2.Distance(pos,holePoint)<0.2)) MakeAHole(holePoint, direction);
                 }
                 else
                 {
-                    MakeAPotato(potatoPoint, direction);
+                    if((Vector2.Distance(pos,potatoPoint)<0.4))MakeAPotato(potatoPoint, direction);
                 }
-            }*/
+            }
         }
 
 

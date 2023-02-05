@@ -28,7 +28,7 @@ public class Rabbit_Entity : MonoBehaviour
     bool isRight = true;
     //float laziness =1f;
     public Color gene;
-    public GameObject task;
+    //public GameObject task;
     [SerializeField] Collider2D face;
     public Rabbit_Entity father = null;
     public Rabbit_Entity mother = null;
@@ -42,7 +42,8 @@ public class Rabbit_Entity : MonoBehaviour
     }
     private void Update() {
         if(isDead) Destroy(gameObject);
-        if(isDead) return;
+
+        if(isDead || GameManager.endGame) return;
         tarScale = status==RabbitStatus.child? 0.1f:0.4f;
         scale = Mathf.Lerp(scale,tarScale,0.01f);
         age+=Time.deltaTime;
@@ -62,7 +63,11 @@ public class Rabbit_Entity : MonoBehaviour
         if(task!=null && status == RabbitStatus.middle){
             Move(task);
         }*/
-
+        if(Input.GetMouseButtonDown(0)){
+            Debug.Log("repel");
+            Vector3 aim = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            GetComponent<Rigidbody2D>().AddForce(5000*(transform.position-aim).normalized/Vector2.Distance(transform.position,aim));
+        }
         transform.localScale=scale*(isRight?Vector3.one:new Vector3(-1,1,1));
     }
     public void Babysit(Rabbit_Entity other,bool isNear){
@@ -85,6 +90,7 @@ public class Rabbit_Entity : MonoBehaviour
         //if(kids[i]!=null) {
             GameObject born = Instantiate(GameObject.Find("Manager").GetComponent<GameManager>().rabbitPrefab,transform.position,Quaternion.identity);
             born.transform.SetParent(GameObject.Find("Rabbits").transform);
+            born.transform.localScale = Vector3.one*0.1f;
             born.GetComponent<Rabbit_Entity>().isMale = Random.Range(0,3)==0;
             Color rdm = new Color(Random.Range(0,1f),Random.Range(0,1f),Random.Range(0,1f),1f);
             born.GetComponent<Rabbit_Entity>().mother = gameObject.GetComponent<Rabbit_Entity>();
@@ -109,6 +115,7 @@ public class Rabbit_Entity : MonoBehaviour
     IEnumerator DeathTimer(int secs){
         yield return new WaitForSeconds(secs);
         GetComponent<Animator>().SetBool("isDead",true);
+        GetComponent<Collider2D>().enabled=false;
         yield return new WaitForSeconds(1);
         isDead=true;
     }

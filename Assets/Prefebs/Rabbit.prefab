@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211211845383241936}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8, y: -2.143, z: 0}
-  m_LocalScale: {x: 1.0165, y: 2.0729518, z: 0.5}
+  m_LocalPosition: {x: 0.247, y: -2.697, z: 0}
+  m_LocalScale: {x: 1.0165, y: 1.0422801, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1211211846113438628}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211211845383241936}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 307be74ff6ede974faaaa849abb1919f, type: 3}
   m_Name: 
@@ -153,7 +153,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211211846113438625}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.162, y: 0.11, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -227,7 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eae035d88ca97547be9a820afe30663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toDo: 0
   scale: 0.4
   status: 0
   generation: 0
@@ -237,7 +236,6 @@ MonoBehaviour:
   isMale: 0
   isPreg: 0
   gene: {r: 1, g: 1, b: 1, a: 1}
-  task: {fileID: 0}
   face: {fileID: 1211211845383241937}
   father: {fileID: 1211211846113438630}
   mother: {fileID: 1211211846113438630}
@@ -275,8 +273,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0039454103, y: -2.6202528}
-  m_Size: {x: 1.376697, y: 1.3766971}
+  m_Offset: {x: 0.0039454103, y: -1.99}
+  m_Size: {x: 1.376697, y: 2.49}
   m_Direction: 0
 --- !u!95 &4445705185902434162
 Animator:

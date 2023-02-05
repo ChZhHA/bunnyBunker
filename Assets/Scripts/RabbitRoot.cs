@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class RabbitRoot : MonoBehaviour
 {
     public GameObject element;
+    public Image line;
     public GameObject generations;
     public Vector2 pos;
     public Image scroll;
@@ -25,7 +26,6 @@ public class RabbitRoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space)) GenerateRoot(GameManager.totalIndex-1);
         a = Mathf.Lerp(a,tarA,0.002f);
         scroll.color = new Color(1,1,1,a);
         s= Mathf.Lerp(s,tarS,0.002f);
@@ -38,13 +38,28 @@ public class RabbitRoot : MonoBehaviour
         }
         for(int i=0;i<RabbitMap.rootTree.Count;i++){
             GameObject item = Instantiate(element);
-            item.transform.SetParent(transform.GetChild(RabbitMap.rootTree[i].generation));
+            item.transform.SetParent(transform.GetChild(1+RabbitMap.rootTree[i].generation));
             Debug.Log(RabbitMap.rootTree[i].generation);
             item.GetComponent<UnityEngine.UI.Image>().color = RabbitMap.rootTree[i].gene;
             elements.Add(item);
             item.GetComponent<Counter>().count = i;
-            Debug.Log(Camera.main.ViewportToWorldPoint((item.GetComponent<RectTransform>().position)));
-            //item.transform.GetChild(0).LookAt(elements[RabbitMap.rootTree[i].mother].GetComponent<RectTransform>().anchoredPosition);
+            item.GetComponent<Counter>().motherIndex = RabbitMap.rootTree[i].mother;
+            item.GetComponent<Counter>().generation = RabbitMap.rootTree[i].generation;
+            item.GetComponent<Counter>().parent = elements[RabbitMap.rootTree[i].mother];
+            var rP = item.GetComponent<RectTransform>().anchoredPosition;
+            var tp = item.GetComponent<RectTransform>().position;
+            Debug.Log(item.transform.position);
+            Debug.Log(elements[RabbitMap.rootTree[i].mother].transform.position);
+            //Image lineElement = Instantiate(line,transform);
+            //Debug.Log(lineElement);
+            //lineElement.transform.position = item.GetComponent<RectTransform>().position;
+            //lineElement.transform.localRotation = Quaternion.AngleAxis(-GetAngle(elements[RabbitMap.rootTree[i].mother].GetComponent<RectTransform>(),item.GetComponent<RectTransform>()), Vector3.forward);
+            //var distance = Vector2.Distance(elements[RabbitMap.rootTree[i].mother].GetComponent<RectTransform>().anchoredPosition, item.GetComponent<RectTransform>().anchoredPosition);
+            //lineElement.rectTransform.sizeDelta = new Vector2(10, Mathf.Max(1, distance - 30));
+            //Debug.Log(Camera.main.ViewportToWorldPoint((item.GetComponent<RectTransform>().position)));
+            //Debug.Log(item.GetComponent<RectTransform>().position);
+            //Debug.Log(elements[RabbitMap.rootTree[i].mother].GetComponent<RectTransform>().position);
+
             /*
             item.AddComponent<LineRenderer>();
             LineRenderer line = item.GetComponent<LineRenderer>();
@@ -59,11 +74,19 @@ public class RabbitRoot : MonoBehaviour
             */
         }
         StartCoroutine(View());
+
+    }
+    public float GetAngle(RectTransform pb, RectTransform pa)
+    {
+        var dir = pb.position - pa.position;
+        var dirV2 = new Vector2(dir.x, dir.y);
+        var angle = Vector2.SignedAngle(dirV2, Vector2.down);
+        return angle;
     }
     IEnumerator View(){
         yield return new WaitForSeconds(3);
         tarA = 0.2f;
-        tarS=0.7f;
+        tarS=0.5f;
     }
     
 }
