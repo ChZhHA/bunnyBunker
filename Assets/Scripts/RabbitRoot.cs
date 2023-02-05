@@ -46,10 +46,6 @@ public class RabbitRoot : MonoBehaviour
             item.GetComponent<Counter>().motherIndex = RabbitMap.rootTree[i].mother;
             item.GetComponent<Counter>().generation = RabbitMap.rootTree[i].generation;
             item.GetComponent<Counter>().parent = elements[RabbitMap.rootTree[i].mother];
-            var rP = item.GetComponent<RectTransform>().anchoredPosition;
-            var tp = item.GetComponent<RectTransform>().position;
-            Debug.Log(item.transform.position);
-            Debug.Log(elements[RabbitMap.rootTree[i].mother].transform.position);
             //Image lineElement = Instantiate(line,transform);
             //Debug.Log(lineElement);
             //lineElement.transform.position = item.GetComponent<RectTransform>().position;
@@ -79,8 +75,8 @@ public class RabbitRoot : MonoBehaviour
 
     IEnumerator View(){
         yield return new WaitForSeconds(3);
-        tarA = 0.9f;
-        tarS=0.8f;
+        tarA = 0.7f;
+        tarS=0.7f;
     }
     
 }

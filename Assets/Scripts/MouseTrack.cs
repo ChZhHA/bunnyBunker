@@ -16,11 +16,11 @@ public class MouseTrack : MonoBehaviour
         var mousePosition = Input.mousePosition;
         if (mousePosition.y < Screen.height * 0.1f)
         {
-            rb.AddForce(new Vector2(0, -50));
+            rb.AddForce(new Vector2(0, -100));
         }
         else if (mousePosition.y > Screen.height * 0.9f)
         {
-            rb.AddForce(new Vector2(0, 50));
+            rb.AddForce(new Vector2(0, 100));
         }
     }
 }

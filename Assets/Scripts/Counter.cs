@@ -15,16 +15,6 @@ public class Counter : MonoBehaviour
     public RectTransform pb;
 
 
-    private void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
 
     public float GetAngle()
     {
@@ -34,14 +24,24 @@ public class Counter : MonoBehaviour
         return angle;
     }
     private void OnEnable() {
-        StartCoroutine(CoWaitForPosition());
+        //StartCoroutine(CoWaitForPosition());
+        pa = GetComponent<RectTransform>();
+        if(parent!=null) pb = parent.GetComponent<RectTransform>();
+        if(pa.GetComponent<Counter>().generation!=0){
+            var rP = pa.anchoredPosition;
+            var tp = pa.position;
+            Image line = Instantiate(arrow,GameObject.Find("Lines").transform);
+            line.transform.position = pa.position;
+            line.transform.localRotation = Quaternion.AngleAxis(-GetAngle(), Vector3.forward);
+            
+            //var distance = Vector2.Distance(pb.anchoredPosition, pa.anchoredPosition);
+            line.rectTransform.sizeDelta = new Vector2(5, 100+generation*10);
+        }
     }
 
     IEnumerator CoWaitForPosition()
     {
         yield return new WaitForEndOfFrame();
-        
-        Debug.Log("线");
         pa = GetComponent<RectTransform>();
         if(parent!=null) pb = parent.GetComponent<RectTransform>();
         if(pa.GetComponent<Counter>().generation!=0){

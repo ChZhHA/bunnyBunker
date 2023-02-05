@@ -80,9 +80,9 @@ public class Rabbit_Entity : MonoBehaviour
         transform.GetChild(2).gameObject.SetActive(hunger>0);
 
         transform.localScale=scale*(isMale?Vector3.one:new Vector3(-1,1,1));
-        if(transform.position.y<-80&&status!=RabbitStatus.dead){
-            GameObject.Find("Manager").GetComponent<GameManager>().EndGame(true);
-        }
+
+
+
     }
     public void Babysit(Rabbit_Entity other,bool isNear){
         if(GetComponent<Rabbit_Entity>().status==RabbitStatus.child && other.status!=RabbitStatus.child){
@@ -93,14 +93,14 @@ public class Rabbit_Entity : MonoBehaviour
     public void Breed(Rabbit_Entity other){
         if(!GetComponent<Rabbit_Entity>().isMale && other.isMale && GetComponent<Rabbit_Entity>() && other.status==RabbitStatus.middle 
         && GetComponent<Rabbit_Entity>().status==RabbitStatus.middle
-        && GetComponent<Rabbit_Entity>().isPreg == false && hunger>2){
+        && GetComponent<Rabbit_Entity>().isPreg == false && hunger>3){
             GetComponent<Rabbit_Entity>().isPreg = true;
             StartCoroutine(ProduceTimer(5,other));
             GetComponent<Animator>().SetTrigger("Spin");
         }
     }
     public void Reproduce(Rabbit_Entity other){
-        int num = Random.Range(1,4);
+        int num = Random.Range(1,3);
         for(int i=0;i<num;i++){
         //if(kids[i]!=null) {
             GameObject born = Instantiate(GameObject.Find("Manager").GetComponent<GameManager>().rabbitPrefab,transform.position,Quaternion.identity);
