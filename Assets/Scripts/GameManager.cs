@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
             isWin=false;
             EndGame(false);
         }
-        if(GameObject.Find("Main Camera").transform.position.y<-80){
+        if(GameObject.Find("Main Camera").transform.position.y<-80&&!endGame){
             endGame=true;
             EndGame(true);
         }
